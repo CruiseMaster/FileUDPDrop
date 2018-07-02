@@ -21,6 +21,7 @@ namespace UDPInteraction
             this.Port = port;
             byteBag = new ConcurrentQueue<byte[]>();
             this.abort = false;
+            this.TypeOfServer = serverType;
         }
 
         public void StartServer()
@@ -60,8 +61,7 @@ namespace UDPInteraction
             while (!abort)
             {
                 Thread.Sleep(500);
-                byte[] currentArray = null;
-                byteBag.TryDequeue(out currentArray);
+                byteBag.TryDequeue(out byte[] currentArray);
 
                 if (currentArray == null || currentArray.Length == 0)
                     continue;
@@ -75,7 +75,7 @@ namespace UDPInteraction
 
         private void HandleNegotiationMessage (Message message)
         {
-            if (message == null || message.Header == null || message.Header.Trim().Equals(string.Empty))
+            if (message?.Header == null || message.Header.Trim().Equals(string.Empty))
                 return;
 
             switch (message.Header)
@@ -94,6 +94,7 @@ namespace UDPInteraction
 
         public event EventHandler<ChatMessage> ChatMessageIncommingPropagation;
         public event EventHandler<FileInstance> FileAnnouncementPropagation;
+        public event EventHandler<Message> MessageIncommingPropagation;
 
         public void PropagateFileOffer(Message message)
         {
@@ -115,7 +116,7 @@ namespace UDPInteraction
 
         public void PropagateMessage(Message message)
         {
-
+            MessageIncommingPropagation?.Invoke(this, message);
         }
 
         public void Close()
