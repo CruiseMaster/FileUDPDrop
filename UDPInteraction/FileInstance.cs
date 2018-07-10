@@ -22,9 +22,9 @@ namespace UDPInteraction
 
         public long Size { get; set; }
 
-        public byte[] CRC { get; set; }
+        public byte[] CRC { get; private set; }
 
-        public int UDPPort { get; private set; }
+        public int UDPPort { get; set; }
 
         public byte[] ComputeHash()
         {

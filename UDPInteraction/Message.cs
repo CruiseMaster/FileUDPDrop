@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,5 +39,6 @@ namespace UDPInteraction
         public string Header { get; set; }
         public string Data { get; set; }
         public List<object> Attatchment { get; set; }
+        public IPAddress SenderIpAddress { get; set; }
     }
 }

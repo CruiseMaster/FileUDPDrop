@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UDPInteraction
 {
-    class UDPClient
+    public class UDPClient
     {
         public UDPClient(int port)
         {
